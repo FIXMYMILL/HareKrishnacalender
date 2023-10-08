@@ -90,7 +90,7 @@ function selecteddate(id) {
         date:id,
     };
     let result="";
-    axios.post('http://localhost:3000/events',data,{
+    axios.post('/events',data,{
         headers: {
           'Content-Type': 'application/json',
         },
