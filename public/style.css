@@ -1,0 +1,314 @@
+/* Import Google font - Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+body{
+  display: flex;
+  /* flex-direction: column; */
+  align-items: center;
+  padding: 0 10px;
+  justify-content: center;
+  min-height: 100vh;
+  background:#072640;
+}
+.wrapper{
+  width:40%;
+  position:absolute;
+  top:8%;
+  left:30%;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+}
+.wrapper header{
+  display: flex;
+  align-items: center;
+  padding: 25px 30px 10px;
+  justify-content: space-between;
+}
+header .icons{
+  display: flex;
+}
+header .icons span{
+  height: 38px;
+  width: 38px;
+  margin: 0 1px;
+  cursor: pointer;
+  color: #878787;
+  text-align: center;
+  line-height: 38px;
+  font-size: 1.9rem;
+  user-select: none;
+  border-radius: 50%;
+}
+.icons span:last-child{
+  margin-right: -10px;
+}
+header .icons span:hover{
+  background: #f2f2f2;
+}
+header .current-date{
+  font-size: 1.45rem;
+  font-weight: 500;
+}
+.calendar{
+  padding: 20px;
+}
+.calendar ul{
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  text-align: center;
+}
+.calendar .days{
+  margin-bottom: 20px;
+}
+.calendar li{
+  color: #333;
+  width: calc(100% / 7);
+  font-size: 1.07rem;
+}
+.calendar .weeks li{
+  font-weight: 500;
+  cursor: default;
+}
+.calendar .days li{
+  z-index: 1;
+  cursor: pointer;
+  position: relative;
+  margin-top: 30px;
+}
+.days li.inactive{
+  color: #aaa;
+}
+.days li.active{
+  color: #fff;
+}
+.days li::before{
+  position: absolute;
+  content: "";
+  left: 50%;
+  top: 50%;
+  height: 40px;
+  width: 40px;
+  z-index: -1;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.days li.active::before{
+  background:#072640;
+}
+.days li:not(.active):hover::before{
+  background: #f2f2f2;
+}
+
+.curr{
+    font-weight: bold;
+    background-color: #F7B33B;
+    border-radius: 40px;
+    font-size:23px;
+    border: 2px #072640 solid;
+    padding-left:10px;
+    padding-right:10px;
+}
+
+
+input[type=text], select, textarea{
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  resize: vertical;
+}
+
+/* Style the label to display next to the inputs */
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+
+/* Style the submit button */
+input[type=submit] {
+  margin-top:5px;
+  background-color:#072640;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+}
+input[type=date] {
+  background-color: #04AA6D;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Style the container */
+.container {
+  position: absolute;
+  top:65%;
+  left:50%;
+  transform: translate(-50%,-150%) scale(0);
+  width:40%;
+  z-index: 2;
+  padding:20px;
+  padding-top:60px !important;
+  border-radius: 5px;
+  background-color:#F7B33B;
+  z-index: 1;
+  /* display:none;
+  position: absolute;
+  width:40%;
+  top:130%;
+  left:30%;
+  border-radius: 5px;
+  background-color:white;
+  padding: 20px;
+  box-shadow:2px 2px 3px 3px white; */
+}
+.popup {
+  transition: all 10ms ease-in-out;
+  transform: translate(-50%,-50%) scale(1);
+ }
+
+/* Floating column for labels: 25% width */
+.col-25 {
+  float: left;
+  width: 25%;
+  margin-top: 6px;
+}
+
+/* Floating column for inputs: 75% width */
+.col-75 {
+  float: left;
+  width: 75%;
+  margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.content{
+  display:none;
+  background-color: white;
+  position: absolute;
+  top:75%;
+  left:25%;
+  width: 50%;
+  text-align: center;
+  padding: 10px;
+  border-radius:30px;
+  margin-top:20px;
+}
+.content .outerdiv{
+  text-align: left;
+  background-color: white;
+  border-radius: 10px;
+  border: 2px solid #072640;
+  padding: 10px;
+  margin-bottom:10px;
+}
+.innerdiv{
+  display:flex;
+  flex-direction:row;
+}
+.content h1{
+  font-family: emoji;
+  font-weight: 600;
+  color:#072640;
+  padding: 6px;
+}
+.content div .sessionheading{
+  font-size: 20px;
+  font-weight: bold;
+}
+.leftdiv{
+  padding-right:90px;
+}
+
+.rightdiv{
+  padding-left:70px;
+}
+
+.content button {
+  font-size: 45px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color:#072640;
+  border-width: 0px;
+  color:white;
+}
+
+
+.close{
+ background-color:#072640 ;
+ border:none;
+ width: 90px;
+ border-radius: 10px;
+ height:40px;
+ width:80px;
+}
+
+.link{
+  font-size: 16px;
+  color: white;
+  text-decoration: none;
+  font-family: sans-serif;
+}
+.content .buttonele{
+    border: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+}
+
+
+@media screen and (max-width:800px) {
+ body{
+    flex-direction:column;
+ }
+ .wrapper{
+  margin-top:10px;
+  width:100%;
+  position:static;
+  margin-bottom:20px;
+ }
+ .container{
+  width:100%;
+  position:static;
+ }
+ .leftdiv{
+  padding:0px;
+ }
+ .rightdiv{
+  padding:0px;
+ }
+ .innerdiv{
+  flex-direction:column !important;
+ }
+ .popup {
+  margin-top:60px;
+  transition: all 30ms ease-in-out;
+  transform: translate(0%,-50%) scale(1);
+ }
+ .content{
+  width:100%;
+  position:static;
+ }
+}
+
