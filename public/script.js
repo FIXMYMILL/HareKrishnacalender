@@ -78,8 +78,31 @@ function selecteddate(id) {
     let contentdiv=document.getElementById("content");
     contentdiv.innerHTML="";
     let hele=document.createElement("h1");
+    let datele=document.createElement("h3");
+    let datedata=id.split('-').reverse().join('-');
+    let datearr=id.split('-');
+    let presentdate=new Date();
+    let flag=true;
+    if(presentdate.getFullYear>Number(datearr[0])){
+       flag=false;
+    }
+    else{
+        if(presentdate.getMonth()+1 >Number(datearr[1])){
+            flag=false;
+        }
+        else{
+            if(presentdate.getDate()>Number(datearr[2])){
+                flag=false;
+            }
+        }
+    }
+    datele.textContent=datedata;
+    datele.style.textAlign="left";
+    datele.style.paddingLeft="5px";
     hele.textContent="Subhojanam Booking";
+
     contentdiv.appendChild(hele);
+    contentdiv.appendChild(datele);
     let element = document.getElementById(id);
     let dates = document.querySelectorAll(".dates");
     dates.forEach(item => {
@@ -96,6 +119,7 @@ function selecteddate(id) {
         },
       }).then(response => {
         result=response.data;
+        document.getElementById("viewcontent").style.display="none";
         if(result.length==0){
             console.log("hello");
             let divele=document.createElement("div");
@@ -109,34 +133,56 @@ function selecteddate(id) {
             result.forEach(ele=>{
                 let outerdiv=document.createElement("div");
                 let innerdiv=document.createElement("div");
-                let leftdiv=document.createElement("div");
-                let rightdiv=document.createElement("div");
                 let h2ele=document.createElement("p");
                 h2ele.classList.add("sessionheading");
                 let donar=document.createElement("p");
                 let phone=document.createElement("p");
+                h2ele.textContent=ele.Session;
+                donar.textContent="Donar Name : "+ele.Donar_Name
+                phone.textContent="Phone : "+ele.Phone;
+                let viewbutton=document.createElement("button");
+                viewbutton.textContent="View";
+                viewbutton.classList.add("viewbutton");
+
+                viewbutton.onclick=()=>{
+                contentdiv.style.display="none";
+                
+                let viewcontent=document.getElementById("viewcontent");
+                viewcontent.innerHTML="";
+                let leftdiv=document.createElement("div");
+                let rightdiv=document.createElement("div");
+
+                let viewdateele=document.createElement("h2");
+                viewdateele.textContent="Date  :"+datedata;
+
+                let viewsessionele=document.createElement("p");
+                viewsessionele.classList.add("sessionheading");
+                viewsessionele.style.fontSize="25px";
+                let viewdonarele=document.createElement("p");
+                let phonenumber=document.createElement("p");
                 let willattend=document.createElement("p");
                 let bookedby=document.createElement("p");
                 let sevak_name=document.createElement("p");
                 let Donar_Id=document.createElement("p");
                 let Ocassion=document.createElement("p");
-                let Reciept_Number=document.createElement("p");
-             
-
-                h2ele.textContent=ele.Session;
-                donar.textContent="Donar Name : "+ele.Donar_Name
-                phone.textContent="Phone : "+ele.Phone;
-                bookedby.textContent="Booked By : "+ele.Booked_By;
-                willattend.textContent="willattend : "+ele.will_attend;
+                let Reciept_Number=document.createElement("p"); 
+                  
+                viewsessionele.textContent=ele.Session;
+                viewsessionele.style.fontWeight= "bold";
+                viewsessionele.style.textAlign="center";
+                viewdonarele.textContent="Donar Name  : "+ele.Donar_Name;
+                phonenumber.textContent="Phone  : "+ele.Phone;
+                bookedby.textContent="Booked By  : "+ele.Booked_By;
+                willattend.textContent="willattend  : "+ele.will_attend;
                 sevak_name.textContent="Sevak_Name : "+ele.Sevak_Name;
-                Donar_Id.textContent="Donar ID : "+ele.Donar_id;
-                Ocassion.textContent="Ocassion : "+ele.Occassion;
-                Reciept_Number.textContent="Reciept Number : "+ele.Reciept_Number;
+                Donar_Id.textContent="Donar ID :  "+ele.Donar_id;
+                Ocassion.textContent="Ocassion :  "+ele.Occassion;
+                Reciept_Number.textContent="Reciept Number : "+ele.Reciept_Number;   
+                
 
-
-                outerdiv.appendChild(h2ele);
-                leftdiv.appendChild(donar);
-                leftdiv.appendChild(phone);
+                leftdiv.appendChild(viewsessionele);
+                leftdiv.appendChild(viewdonarele);
+                leftdiv.appendChild(phonenumber);
                 leftdiv.appendChild(bookedby);
                 leftdiv.appendChild(willattend);
 
@@ -144,17 +190,32 @@ function selecteddate(id) {
                 rightdiv.appendChild(Donar_Id);
                 rightdiv.appendChild(Ocassion);
                 rightdiv.appendChild(Reciept_Number);
-
-                innerdiv.appendChild(leftdiv);
-                innerdiv.appendChild(rightdiv);
-                outerdiv.appendChild(innerdiv);
                 leftdiv.classList.add("leftdiv");
                 rightdiv.classList.add("rightdiv");
+            let viewclosebutton=document.createElement("button");
+                 viewclosebutton.textContent="close";
+                 viewclosebutton.style.color="white";
+                viewclosebutton.classList.add("close");
+             viewclosebutton.onclick=()=>{
+                 location.href="/";
+             }
+               viewcontent.appendChild(viewdateele);
+               viewcontent.appendChild(leftdiv);
+               viewcontent.appendChild(rightdiv);
+               viewcontent.appendChild(viewclosebutton);
+               viewcontent.style.display="block";
+                 }
+                outerdiv.appendChild(h2ele);
+                innerdiv.appendChild(donar);
+                innerdiv.appendChild(phone);
+                outerdiv.appendChild(innerdiv);
+                outerdiv.appendChild(viewbutton);
                 outerdiv.classList.add("outerdiv");
                 innerdiv.classList.add("innerdiv");
-               contentdiv.appendChild(outerdiv);
+                contentdiv.appendChild(outerdiv); 
             })
         }
+        if(flag){
         let buttondivele=document.createElement("div");
         buttondivele.classList.add("buttonele");
         let btnele=document.createElement("button");
@@ -209,6 +270,7 @@ function selecteddate(id) {
             contentdiv.style.display="none";
         };
         contentdiv.appendChild(buttondivele);
+        }
         contentdiv.style.display="block";
       })
       .catch(error => {

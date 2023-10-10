@@ -214,17 +214,44 @@ input[type=date] {
   border-radius:30px;
   margin-top:20px;
 }
+.viewcontent{
+  display:none;
+  background-color: white;
+  position: absolute;
+  top:75%;
+  left:25%;
+  width: 50%;
+  text-align:left;
+  padding:25px;
+  border-radius:30px;
+  margin-top:20px;
+}
 .content .outerdiv{
+  /* display:flex;
+  flex-direction:row;
   text-align: left;
   background-color: white;
   border-radius: 10px;
   border: 2px solid #072640;
   padding: 10px;
-  margin-bottom:10px;
+  margin-bottom:10px; */
+  display: flex;
+    flex-direction: row;
+    text-align: left;
+    background-color: white;
+    border-radius: 10px;
+    border: 2px solid #072640;
+    padding: 20px;
+    margin-bottom: 10px;
+    font-size:22px;
 }
 .innerdiv{
-  display:flex;
-  flex-direction:row;
+  display: inline-block;
+  width: 50%;
+  font-size:20px;
+  /* display:inline-block;
+  width:30% */
+  /* flex-direction:column; */
 }
 .content h1{
   font-family: emoji;
@@ -233,22 +260,38 @@ input[type=date] {
   padding: 6px;
 }
 .content div .sessionheading{
+  /* display:inline-block;
+  width:20%;
   font-size: 20px;
-  font-weight: bold;
+  font-weight: bold; */
+  display: inline-block;
+    width: 30%;
+    font-size: 20px;
+    padding-top: 12px;
 }
-.leftdiv{
+/* .leftdiv{
   padding-right:90px;
 }
 
 .rightdiv{
   padding-left:70px;
-}
+} */
 
 .content button {
   font-size: 45px;
   width: 60px;
   height: 60px;
   border-radius: 50%;
+  background-color:#072640;
+  border-width: 0px;
+  color:white;
+}
+
+.content .viewbutton{
+  font-size:18px;
+  width: 60px;
+  height: 40px;
+  border-radius:10px;
   background-color:#072640;
   border-width: 0px;
   color:white;
@@ -292,14 +335,14 @@ input[type=date] {
   width:100%;
   position:static;
  }
- .leftdiv{
-  padding:0px;
+ /* .leftdiv{
+  padding-right:0px;
  }
  .rightdiv{
-  padding:0px;
- }
+  padding-left:0px;
+ } */
  .innerdiv{
-  flex-direction:column !important;
+  padding-left:10px;
  }
  .popup {
   margin-top:60px;
@@ -307,6 +350,10 @@ input[type=date] {
   transform: translate(0%,-50%) scale(1);
  }
  .content{
+  width:100%;
+  position:static;
+ }
+ .viewcontent{
   width:100%;
   position:static;
  }
