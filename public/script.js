@@ -82,19 +82,28 @@ function selecteddate(id) {
     let datedata=id.split('-').reverse().join('-');
     let datearr=id.split('-');
     let presentdate=new Date();
-    let flag=true;
-    if(presentdate.getFullYear>Number(datearr[0])){
-       flag=false;
+    let flag=false;;
+    if(Number(datearr[0])>presentdate.getFullYear()){
+       flag=true;
     }
-    else{
-        if(presentdate.getMonth()+1 >Number(datearr[1])){
-            flag=false;
+    else if(presentdate.getFullYear()===Number(datearr[0])){
+        if(presentdate.getMonth()+1<Number(datearr[1])){
+            flag=true;
         }
-        else{
-            if(presentdate.getDate()>Number(datearr[2])){
+        else if(presentdate.getMonth()+1===Number(datearr[1])){
+            if(presentdate.getDate()<=Number(datearr[2])){
+                flag=true;
+            }
+            else{
                 flag=false;
             }
         }
+        else{
+            flag=false;
+        }
+    }
+    else{
+        flag=false;
     }
     datele.textContent=datedata;
     datele.style.textAlign="left";
