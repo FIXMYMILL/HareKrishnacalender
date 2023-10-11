@@ -1,9 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
-const port = 3000;
 const mysql=require("mysql");
+require('dotenv').config();
 const mysql2 = require("mysql2/promise");
+
+const port=process.env.PORT||3000;
 
 const cors = require('cors');
 app.use(cors());
@@ -54,7 +56,7 @@ app.post('/events',express.json(),(request, res) => {
       });
 });
 
-app.listen(port, () => {
+app.listen(port,"0.0.0.0",() => {
     console.log(`Server is running on port ${port}`);
 });
 
