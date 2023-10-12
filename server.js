@@ -1,9 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
-const mysql=require("mysql");
+// const mysql=require("mysql");
 require('dotenv').config();
-const mysql2 = require("mysql2/promise");
+const mysql = require("mysql2");
 
 const port=process.env.PORT||3000;
 
@@ -20,13 +20,15 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/public/index.html');
 });
 
+console.log(process.env.USERNAM);
 var connection =mysql.createConnection({
     host:process.env.HOSTNAME,
-    user:process.env.USERNAME,
+    user:process.env.USERNAM,
     password:process.env.PASSWORD,
     database:process.env.DATABASE,
     port:process.env.DATABASEPORT,
 })
+
 
 connection.connect(function(err) {
     if (err) throw err;
