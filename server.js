@@ -46,10 +46,10 @@ app.post('/', (req, res) => {
 app.post('/events',express.json(),(request, res) => {
     const {date}=request.body;
     console.log(date);
-    res.json({
-        status: 'success',
-        message: 'Data received successfully!'
-    });
+    // res.json({
+    //     status: 'success',
+    //     message: 'Data received successfully!'
+    // });
     connection.query("SELECT * FROM RDBMS WHERE Date=?",date, function (err, result, fields) {
         if (err) throw err;
         // res.send(JSON.stringify(result));
