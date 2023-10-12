@@ -21,11 +21,11 @@ app.get('/', (req, res) => {
 });
 
 var connection =mysql.createConnection({
-    host: "sql12.freesqldatabase.com",
-    user: "sql12651258",
-    password: "L9y8ePVTBI",
-    database: "sql12651258",
-    port: 3306,
+    host:process.env.HOSTNAME,
+    user:process.env.USERNAME,
+    password:process.env.PASSWORD,
+    database:process.env.DATABASE,
+    port:process.env.DATABASEPORT,
 })
 
 connection.connect(function(err) {
@@ -35,6 +35,7 @@ connection.connect(function(err) {
 
 app.post('/', (req, res) => {
     let data = req.body;
+    console.log(data);
     connection.query("INSERT INTO RDBMS set ?", data, function (err, result) {
         if (err) throw err;
         console.log("1 record inserted");
@@ -45,10 +46,10 @@ app.post('/', (req, res) => {
 app.post('/events',express.json(),(request, res) => {
     const {date}=request.body;
     console.log(date);
-    // res.json({
-    //     status: 'success',
-    //     message: 'Data received successfully!'
-    // });
+    res.json({
+        status: 'success',
+        message: 'Data received successfully!'
+    });
     connection.query("SELECT * FROM RDBMS WHERE Date=?",date, function (err, result, fields) {
         if (err) throw err;
         // res.send(JSON.stringify(result));
