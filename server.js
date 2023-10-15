@@ -29,6 +29,17 @@ var connection =mysql.createConnection({
     port:process.env.DATABASEPORT,
 })
 
+// const getConnection = () => {
+//     return new Promise((resolve, reject) => {
+//       pool.getConnection((err, connection) => {
+//         if (err) {
+//           reject(err);
+//         } else {
+//           resolve(connection);
+//         }
+//       });
+//     });
+//   };
 
 connection.connect(function(err) {
     if (err) throw err;
@@ -36,6 +47,10 @@ connection.connect(function(err) {
 });
 
 app.post('/', (req, res) => {
+    connection.connect(function(err) {
+        if (err) throw err;
+        console.log("Connected!");
+    });
     let data = req.body;
     console.log(data);
     connection.query("INSERT INTO RDBMS set ?", data, function (err, result) {
@@ -45,13 +60,25 @@ app.post('/', (req, res) => {
     res.redirect("/");
 });
 
+
+// async function executeQuery() {
+//     try {
+//       const connection = await getConnection();
+//       const [results, fields] = await connection.query('SELECT * FROM your_table');
+//       connection.release(); // Release the connection back to the pool
+//       console.log(results);
+//     } catch (error) {
+//       console.error('Error executing query:', error);
+//     }
+//   }
+
 app.post('/events',express.json(),(request, res) => {
+    connection.connect(function(err) {
+        if (err) throw err;
+        console.log("Connected!");
+    });
     const {date}=request.body;
     console.log(date);
-    // res.json({
-    //     status: 'success',
-    //     message: 'Data received successfully!'
-    // });
     connection.query("SELECT * FROM RDBMS WHERE Date=?",date, function (err, result, fields) {
         if (err) throw err;
         // res.send(JSON.stringify(result));
