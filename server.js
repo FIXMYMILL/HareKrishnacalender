@@ -45,6 +45,21 @@ const pool = mysql.createPool({
     keepAliveInitialDelay: 0
   });
 
+  pool.getConnection()
+  .then(async (connection) => {
+    if (connection.state === 'connected') {
+      console.log('Connection is open');
+    } else {
+      console.log('Connection is closed');
+    }
+
+    // Release the connection back to the pool
+    connection.release();
+  })
+  .catch((err) => {
+    console.error('Error getting connection from the pool:', err);
+  });
+
 // connection.connect(function(err) {
 //     if (err) throw err;
 //     console.log("Connected!");
@@ -70,16 +85,7 @@ app.post('/', (req, res) => {
 });
 
 
-// async function executeQuery() {
-//     try {
-//       const connection = await getConnection();
-//       const [results, fields] = await connection.query('SELECT * FROM your_table');
-//       connection.release(); // Release the connection back to the pool
-//       console.log(results);
-//     } catch (error) {
-//       console.error('Error executing query:', error);
-//     }
-//   }
+
 
 app.post('/events',express.json(),(request, res) => {
     connection.connect(function(err) {
