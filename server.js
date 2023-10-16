@@ -87,7 +87,6 @@ app.post('/events',express.json(),(request, res) => {
       });
     connection.end();
 });
-connection.end();
 
 app.listen(port,"0.0.0.0",() => {
     console.log(`Server is running on port ${port}`);
