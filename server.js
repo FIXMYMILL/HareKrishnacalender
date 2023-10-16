@@ -29,6 +29,7 @@ var connection =mysql.createConnection({
     port:process.env.DATABASEPORT,
 })
 
+
 // const getConnection = () => {
 //     return new Promise((resolve, reject) => {
 //       pool.getConnection((err, connection) => {
@@ -58,6 +59,7 @@ app.post('/', (req, res) => {
         console.log("1 record inserted");
     });
     res.redirect("/");
+    connection.end();
 });
 
 
@@ -80,11 +82,12 @@ app.post('/events',express.json(),(request, res) => {
     const {date}=request.body;
     console.log(date);
     connection.query("SELECT * FROM RDBMS WHERE Date=?",date, function (err, result, fields) {
-        if (err) throw err;
-        // res.send(JSON.stringify(result));
+        if (err) throw err;;
         res.send(result);
       });
+    connection.end();
 });
+connection.end();
 
 app.listen(port,"0.0.0.0",() => {
     console.log(`Server is running on port ${port}`);
