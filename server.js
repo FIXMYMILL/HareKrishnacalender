@@ -21,40 +21,48 @@ app.get('/', (req, res) => {
 });
 
 console.log(process.env.USERNAM);
-var connection =mysql.createConnection({
+// var connection =mysql.createConnection({
+//     host:process.env.HOSTNAME,
+//     user:process.env.USERNAM,
+//     password:process.env.PASSWORD,
+//     database:process.env.DATABASE,
+//     port:process.env.DATABASEPORT,
+// })
+
+
+const pool = mysql.createPool({
     host:process.env.HOSTNAME,
     user:process.env.USERNAM,
     password:process.env.PASSWORD,
     database:process.env.DATABASE,
     port:process.env.DATABASEPORT,
-})
+    waitForConnections: true,
+    connectionLimit: 10,
+    maxIdle: 10, // max idle connections, the default value is the same as `connectionLimit`
+    idleTimeout: 60000, // idle connections timeout, in milliseconds, the default value 60000
+    queueLimit: 0,
+    enableKeepAlive: true,
+    keepAliveInitialDelay: 0
+  });
 
-
-// const getConnection = () => {
-//     return new Promise((resolve, reject) => {
-//       pool.getConnection((err, connection) => {
-//         if (err) {
-//           reject(err);
-//         } else {
-//           resolve(connection);
-//         }
-//       });
-//     });
-//   };
-
-connection.connect(function(err) {
-    if (err) throw err;
-    console.log("Connected!");
-});
+// connection.connect(function(err) {
+//     if (err) throw err;
+//     console.log("Connected!");
+// });
 
 app.post('/', (req, res) => {
-    connection.connect(function(err) {
-        if (err) throw err;
-        console.log("Connected!");
-    });
+    // connection.connect(function(err) {
+    //     if (err) throw err;
+    //     console.log("Connected!");
+    // });
     let data = req.body;
     console.log(data);
-    connection.query("INSERT INTO RDBMS set ?", data, function (err, result) {
+    // connection.query("INSERT INTO RDBMS set ?", data, function (err, result) {
+    //     if (err) throw err;
+    //     console.log("1 record inserted");
+    // });
+
+    pool.query("INSERT INTO RDBMS set ?", data, function (err, result) {
         if (err) throw err;
         console.log("1 record inserted");
     });
@@ -80,10 +88,15 @@ app.post('/events',express.json(),(request, res) => {
     });
     const {date}=request.body;
     console.log(date);
-    connection.query("SELECT * FROM RDBMS WHERE Date=?",date, function (err, result, fields) {
-        if (err) throw err;;
+    // connection.query("SELECT * FROM RDBMS WHERE Date=?",date, function (err, result, fields) {
+    //     if (err) throw err;;
+    //     res.send(result);
+    //   });
+      
+    pool.query("SELECT * FROM RDBMS WHERE Date=?",date, function (err, result, fields) {
+        if (err) throw err;
         res.send(result);
-      });
+    });
 });
 
 app.listen(port,"0.0.0.0",() => {
