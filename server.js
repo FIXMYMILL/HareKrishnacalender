@@ -59,7 +59,6 @@ app.post('/', (req, res) => {
         console.log("1 record inserted");
     });
     res.redirect("/");
-    connection.end();
 });
 
 
@@ -85,7 +84,6 @@ app.post('/events',express.json(),(request, res) => {
         if (err) throw err;;
         res.send(result);
       });
-    connection.end();
 });
 
 app.listen(port,"0.0.0.0",() => {
