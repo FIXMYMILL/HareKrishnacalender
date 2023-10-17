@@ -127,6 +127,7 @@ function selecteddate(id) {
           'Content-Type': 'application/json',
         },
       }).then(response => {
+        console.log(response.data);
         result=response.data;
         document.getElementById("viewcontent").style.display="none";
         if(result.length==0){
