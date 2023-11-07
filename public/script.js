@@ -78,6 +78,7 @@ function selecteddate(id) {
     let contentdiv=document.getElementById("content");
     contentdiv.innerHTML="";
     let hele=document.createElement("h1");
+    hele.classList.add("subhojanam");
     let datele=document.createElement("h3");
     let datedata=id.split('-').reverse().join('-');
     let datearr=id.split('-');

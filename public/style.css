@@ -336,6 +336,9 @@ input[type=date] {
   position:static;
  }
 
+ .subhojanam{
+  font-size:20px;
+ }
  .content div .sessionheading{
   /* display:inline-block;
   width:20%;
