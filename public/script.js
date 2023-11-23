@@ -256,7 +256,7 @@ function selecteddate(id) {
             contentdiv.appendChild(outerdiv); 
         }
         if(result.length==0){
-            console.log("resukt");
+            console.log("result");
         }
         else{
             console.log(result);
@@ -373,7 +373,7 @@ function selecteddate(id) {
         if(!flag){
          s.forEach(val=>{
             let sbtn=document.getElementById("btn"+val);
-            if(sbtn.textContent="Book"){
+            if(sbtn.textContent==="Book"){
                     sbtn.onclick=()=>{
                         alert("Booking cannot be done in completed days");
                 }
