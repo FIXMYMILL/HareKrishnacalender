@@ -373,10 +373,15 @@ function selecteddate(id) {
         if(!flag){
          s.forEach(val=>{
             let sbtn=document.getElementById("btn"+val);
-            sbtn.textContent="view";
-            sbtn.onclick=()=>{
-                alert("Booking cannot be done in completed days");
+            if(sbtn.textContent="Book"){
+                    sbtn.onclick=()=>{
+                        alert("Booking cannot be done in completed days");
+                }
             }
+            // sbtn.textContent="view";
+            // sbtn.onclick=()=>{
+            //     alert("Booking cannot be done in completed days");
+            // }
          })
         }
         contentdiv.style.display="block";
